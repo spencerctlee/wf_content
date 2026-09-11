@@ -1,0 +1,4573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Spencer Lee">
+<meta name="dcterms.date" content="2026-09-11">
+
+<title>Wildfire Public Health Guidance Content Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="wf_ph_content_analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="wf_ph_content_analysis_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="wf_ph_content_analysis_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="wf_ph_content_analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="wf_ph_content_analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="wf_ph_content_analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="wf_ph_content_analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="wf_ph_content_analysis_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="wf_ph_content_analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="wf_ph_content_analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="wf_ph_content_analysis_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data"><span class="header-section-number">2</span> Import Data</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation"><span class="header-section-number">3</span> Data Preparation</a>
+  <ul class="collapse">
+  <li><a href="#data-checks" id="toc-data-checks" class="nav-link" data-scroll-target="#data-checks"><span class="header-section-number">3.1</span> Data Checks</a></li>
+  </ul></li>
+  <li><a href="#inter-coder-reliability" id="toc-inter-coder-reliability" class="nav-link" data-scroll-target="#inter-coder-reliability"><span class="header-section-number">4</span> Inter-Coder Reliability</a>
+  <ul class="collapse">
+  <li><a href="#prepare-reliability-dataset" id="toc-prepare-reliability-dataset" class="nav-link" data-scroll-target="#prepare-reliability-dataset"><span class="header-section-number">4.1</span> Prepare Reliability Dataset</a></li>
+  <li><a href="#overall-reliability" id="toc-overall-reliability" class="nav-link" data-scroll-target="#overall-reliability"><span class="header-section-number">4.2</span> Overall Reliability</a></li>
+  <li><a href="#variable-level-reliability" id="toc-variable-level-reliability" class="nav-link" data-scroll-target="#variable-level-reliability"><span class="header-section-number">4.3</span> Variable-Level Reliability</a></li>
+  <li><a href="#summary-across-variables" id="toc-summary-across-variables" class="nav-link" data-scroll-target="#summary-across-variables"><span class="header-section-number">4.4</span> Summary Across Variables</a></li>
+  </ul></li>
+  <li><a href="#free-text-reliability" id="toc-free-text-reliability" class="nav-link" data-scroll-target="#free-text-reliability"><span class="header-section-number">5</span> Free-Text Reliability</a>
+  <ul class="collapse">
+  <li><a href="#manual-assessment-check" id="toc-manual-assessment-check" class="nav-link" data-scroll-target="#manual-assessment-check"><span class="header-section-number">5.1</span> Manual Assessment Check</a></li>
+  <li><a href="#overall-free-text-agreement" id="toc-overall-free-text-agreement" class="nav-link" data-scroll-target="#overall-free-text-agreement"><span class="header-section-number">5.2</span> Overall Free-Text Agreement</a></li>
+  <li><a href="#free-text-agreement-by-field" id="toc-free-text-agreement-by-field" class="nav-link" data-scroll-target="#free-text-agreement-by-field"><span class="header-section-number">5.3</span> Free-Text Agreement by Field</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">6</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#overall-inter-coder-reliability" id="toc-overall-inter-coder-reliability" class="nav-link" data-scroll-target="#overall-inter-coder-reliability"><span class="header-section-number">6.1</span> Overall Inter-Coder Reliability</a></li>
+  <li><a href="#reliability-across-individual-coding-variables" id="toc-reliability-across-individual-coding-variables" class="nav-link" data-scroll-target="#reliability-across-individual-coding-variables"><span class="header-section-number">6.2</span> Reliability Across Individual Coding Variables</a>
+  <ul class="collapse">
+  <li><a href="#variables-below-the-prespecified-reliability-threshold" id="toc-variables-below-the-prespecified-reliability-threshold" class="nav-link" data-scroll-target="#variables-below-the-prespecified-reliability-threshold"><span class="header-section-number">6.2.1</span> Variables Below the Prespecified Reliability Threshold</a></li>
+  </ul></li>
+  <li><a href="#free-text-agreement" id="toc-free-text-agreement" class="nav-link" data-scroll-target="#free-text-agreement"><span class="header-section-number">6.3</span> Free-Text Agreement</a>
+  <ul class="collapse">
+  <li><a href="#agreement-by-free-text-field" id="toc-agreement-by-free-text-field" class="nav-link" data-scroll-target="#agreement-by-free-text-field"><span class="header-section-number">6.3.1</span> Agreement by Free-Text Field</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#supplementary-reliability-results" id="toc-supplementary-reliability-results" class="nav-link" data-scroll-target="#supplementary-reliability-results"><span class="header-section-number">7</span> Supplementary Reliability Results</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="wf_ph_content_analysis.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Wildfire Public Health Guidance Content Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Spencer Lee </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 11, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="setup" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
+<p>Load packages required for data import, cleaning, descriptive analysis, and assessment of inter-coder reliability.</p>
+</section>
+<section id="import-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Import Data</h1>
+<p>Import the independently coded datasets completed by SL and MB and the manually assessed free-text agreement dataset.</p>
+</section>
+<section id="data-preparation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data Preparation</h1>
+<p>Binary coding variables were standardized to <code>1 = Yes</code> and <code>0 = No</code>. Free-text extraction fields and document metadata were excluded from the binary reliability analysis. Blank, <code>NA</code>, <code>N/A</code>, and placeholder <code>0</code> values were treated as missing.</p>
+<section id="data-checks" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="data-checks"><span class="header-section-number">3.1</span> Data Checks</h2>
+<p>Confirm that the two coder datasets contain the same coding variables and assess whether document identifiers correspond across datasets.</p>
+</section>
+</section>
+<section id="inter-coder-reliability" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Inter-Coder Reliability</h1>
+<p>Inter-coder reliability between the two independent coders (SL and MB) was assessed using observed percent agreement and Krippendorff’s alpha. Krippendorff’s alpha was calculated at the nominal level for binary categorical coding variables.</p>
+<p>Consistent with the prespecified pilot protocol, the primary reliability assessment pooled eligible document-by-code decisions across all binary codes. An alpha of at least 0.80 was considered sufficient to proceed to the main coding phase.</p>
+<p>Variable-level reliability was examined as a secondary diagnostic analysis to identify individual codes associated with disagreement.</p>
+<section id="prepare-reliability-dataset" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="prepare-reliability-dataset"><span class="header-section-number">4.1</span> Prepare Reliability Dataset</h2>
+</section>
+<section id="overall-reliability" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="overall-reliability"><span class="header-section-number">4.2</span> Overall Reliability</h2>
+</section>
+<section id="variable-level-reliability" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="variable-level-reliability"><span class="header-section-number">4.3</span> Variable-Level Reliability</h2>
+<p>For variables with no variation across coder ratings, Krippendorff’s alpha was considered not estimable. Percent agreement was nevertheless retained.</p>
+</section>
+<section id="summary-across-variables" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="summary-across-variables"><span class="header-section-number">4.4</span> Summary Across Variables</h2>
+</section>
+</section>
+<section id="free-text-reliability" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Free-Text Reliability</h1>
+<p>Free-text extraction fields were evaluated separately because independently extracted strings could differ lexically while conveying the same substantive information. Agreement was manually assessed based on substantive equivalence.</p>
+<p>Document-field pairs in which neither coder entered substantive text were excluded from the substantive agreement denominator.</p>
+<section id="manual-assessment-check" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="manual-assessment-check"><span class="header-section-number">5.1</span> Manual Assessment Check</h2>
+<p>All <code>MANUAL_ASSESS</code> decisions should be resolved to <code>YES</code> or <code>NO</code> before final reliability results are reported.</p>
+</section>
+<section id="overall-free-text-agreement" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="overall-free-text-agreement"><span class="header-section-number">5.2</span> Overall Free-Text Agreement</h2>
+</section>
+<section id="free-text-agreement-by-field" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="free-text-agreement-by-field"><span class="header-section-number">5.3</span> Free-Text Agreement by Field</h2>
+</section>
+</section>
+<section id="results" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Results</h1>
+<section id="overall-inter-coder-reliability" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="overall-inter-coder-reliability"><span class="header-section-number">6.1</span> Overall Inter-Coder Reliability</h2>
+<p>The reliability analysis included 26 guidance documents and 4,158 eligible binary document-by-code decisions.</p>
+<p>Coders agreed on 4,120 coding decisions, corresponding to an overall observed agreement of 99.1%.</p>
+<p>Nominal Krippendorff’s alpha across all eligible binary coding decisions was 0.94. The prespecified reliability threshold of alpha &gt;= 0.80 was met.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="cgtmhsoskr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cgtmhsoskr table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cgtmhsoskr thead, #cgtmhsoskr tbody, #cgtmhsoskr tfoot, #cgtmhsoskr tr, #cgtmhsoskr td, #cgtmhsoskr th {
+  border-style: none;
+}
+
+#cgtmhsoskr p {
+  margin: 0;
+  padding: 0;
+}
+
+#cgtmhsoskr .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cgtmhsoskr .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cgtmhsoskr .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cgtmhsoskr .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cgtmhsoskr .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cgtmhsoskr .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cgtmhsoskr .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cgtmhsoskr .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cgtmhsoskr .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cgtmhsoskr .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cgtmhsoskr .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cgtmhsoskr .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cgtmhsoskr .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cgtmhsoskr .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cgtmhsoskr .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgtmhsoskr .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cgtmhsoskr .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cgtmhsoskr .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cgtmhsoskr .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgtmhsoskr .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cgtmhsoskr .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgtmhsoskr .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cgtmhsoskr .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgtmhsoskr .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cgtmhsoskr .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgtmhsoskr .gt_left {
+  text-align: left;
+}
+
+#cgtmhsoskr .gt_center {
+  text-align: center;
+}
+
+#cgtmhsoskr .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cgtmhsoskr .gt_font_normal {
+  font-weight: normal;
+}
+
+#cgtmhsoskr .gt_font_bold {
+  font-weight: bold;
+}
+
+#cgtmhsoskr .gt_font_italic {
+  font-style: italic;
+}
+
+#cgtmhsoskr .gt_super {
+  font-size: 65%;
+}
+
+#cgtmhsoskr .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cgtmhsoskr .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cgtmhsoskr .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cgtmhsoskr .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cgtmhsoskr .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cgtmhsoskr .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cgtmhsoskr .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#cgtmhsoskr .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#cgtmhsoskr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Overall Inter-Coder Reliability</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Measure" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Measure</th>
+<th id="Result" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Result</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Measure">Documents</td>
+<td class="gt_row gt_left" headers="Result">26</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Measure">Eligible binary coding decisions</td>
+<td class="gt_row gt_left" headers="Result">4,158</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Measure">Agreements</td>
+<td class="gt_row gt_left" headers="Result">4,120</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Measure">Disagreements</td>
+<td class="gt_row gt_left" headers="Result">38</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Measure">Observed agreement</td>
+<td class="gt_row gt_left" headers="Result">99.1%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Measure">Krippendorff's alpha</td>
+<td class="gt_row gt_left" headers="Result">0.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Measure">Prespecified alpha &gt;= 0.80 threshold</td>
+<td class="gt_row gt_left" headers="Result">Met</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="reliability-across-individual-coding-variables" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="reliability-across-individual-coding-variables"><span class="header-section-number">6.2</span> Reliability Across Individual Coding Variables</h2>
+<p>Across the 160 binary coding variables, Krippendorff’s alpha could be estimated for 60 variables. Alpha was not estimable for 100 variables because there was insufficient variation in coder ratings.</p>
+<p>Among variables for which alpha was estimable, the median Krippendorff’s alpha was 1.00 (IQR 0.89– 1.00).</p>
+<p>Of these, 49 had alpha &gt;= 0.80, 4 had alpha between 0.67 and 0.79, and 7 had alpha &lt; 0.67.</p>
+<section id="variables-below-the-prespecified-reliability-threshold" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="variables-below-the-prespecified-reliability-threshold"><span class="header-section-number">6.2.1</span> Variables Below the Prespecified Reliability Threshold</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div id="prqkxpmxhc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#prqkxpmxhc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#prqkxpmxhc thead, #prqkxpmxhc tbody, #prqkxpmxhc tfoot, #prqkxpmxhc tr, #prqkxpmxhc td, #prqkxpmxhc th {
+  border-style: none;
+}
+
+#prqkxpmxhc p {
+  margin: 0;
+  padding: 0;
+}
+
+#prqkxpmxhc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#prqkxpmxhc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#prqkxpmxhc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#prqkxpmxhc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#prqkxpmxhc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#prqkxpmxhc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#prqkxpmxhc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#prqkxpmxhc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#prqkxpmxhc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#prqkxpmxhc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#prqkxpmxhc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#prqkxpmxhc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#prqkxpmxhc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#prqkxpmxhc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#prqkxpmxhc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prqkxpmxhc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#prqkxpmxhc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#prqkxpmxhc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#prqkxpmxhc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prqkxpmxhc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#prqkxpmxhc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prqkxpmxhc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#prqkxpmxhc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prqkxpmxhc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#prqkxpmxhc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#prqkxpmxhc .gt_left {
+  text-align: left;
+}
+
+#prqkxpmxhc .gt_center {
+  text-align: center;
+}
+
+#prqkxpmxhc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#prqkxpmxhc .gt_font_normal {
+  font-weight: normal;
+}
+
+#prqkxpmxhc .gt_font_bold {
+  font-weight: bold;
+}
+
+#prqkxpmxhc .gt_font_italic {
+  font-style: italic;
+}
+
+#prqkxpmxhc .gt_super {
+  font-size: 65%;
+}
+
+#prqkxpmxhc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#prqkxpmxhc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#prqkxpmxhc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#prqkxpmxhc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#prqkxpmxhc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#prqkxpmxhc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#prqkxpmxhc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#prqkxpmxhc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#prqkxpmxhc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Coding variable</th>
+<th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">N</th>
+<th id="n_agree" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Agreements</th>
+<th id="percent_agreement" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Agreement (%)</th>
+<th id="coder_1_yes" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">SL Yes</th>
+<th id="coder_2_yes" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">MB Yes</th>
+<th id="krippendorff_alpha" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Krippendorff's alpha</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_outdoor_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_HEPA_improves_other_non_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.47</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_indoor_well_being</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.47</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_reduce_outdoor</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.63</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_indoor_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.63</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_crowdsource</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.63</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_DIY_improves_other_non_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.65</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_govt_BC</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">23</td>
+<td class="gt_row gt_right" headers="percent_agreement">88.5</td>
+<td class="gt_row gt_right" headers="coder_1_yes">9</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.74</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">outdoor_AQ_action_specified</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">23</td>
+<td class="gt_row gt_right" headers="percent_agreement">88.5</td>
+<td class="gt_row gt_right" headers="coder_1_yes">9</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.74</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">other_health_action</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">23</td>
+<td class="gt_row gt_right" headers="percent_agreement">88.5</td>
+<td class="gt_row gt_right" headers="coder_1_yes">11</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.76</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_HEPA_improves_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">5</td>
+<td class="gt_row gt_right" headers="coder_2_yes">7</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.79</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="free-text-agreement" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="free-text-agreement"><span class="header-section-number">6.3</span> Free-Text Agreement</h2>
+<p>Among 29 document-field pairs in which at least one coder entered substantive free-text content, the coders agreed on 26 and disagreed on 3, corresponding to substantive agreement of 89.7%.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="pminyxlift" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pminyxlift table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pminyxlift thead, #pminyxlift tbody, #pminyxlift tfoot, #pminyxlift tr, #pminyxlift td, #pminyxlift th {
+  border-style: none;
+}
+
+#pminyxlift p {
+  margin: 0;
+  padding: 0;
+}
+
+#pminyxlift .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pminyxlift .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pminyxlift .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pminyxlift .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pminyxlift .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pminyxlift .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pminyxlift .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pminyxlift .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pminyxlift .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pminyxlift .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pminyxlift .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pminyxlift .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pminyxlift .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pminyxlift .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pminyxlift .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pminyxlift .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pminyxlift .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pminyxlift .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pminyxlift .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pminyxlift .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pminyxlift .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pminyxlift .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pminyxlift .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pminyxlift .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pminyxlift .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pminyxlift .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pminyxlift .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pminyxlift .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pminyxlift .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pminyxlift .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pminyxlift .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pminyxlift .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pminyxlift .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pminyxlift .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pminyxlift .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pminyxlift .gt_left {
+  text-align: left;
+}
+
+#pminyxlift .gt_center {
+  text-align: center;
+}
+
+#pminyxlift .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pminyxlift .gt_font_normal {
+  font-weight: normal;
+}
+
+#pminyxlift .gt_font_bold {
+  font-weight: bold;
+}
+
+#pminyxlift .gt_font_italic {
+  font-style: italic;
+}
+
+#pminyxlift .gt_super {
+  font-size: 65%;
+}
+
+#pminyxlift .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pminyxlift .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pminyxlift .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pminyxlift .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pminyxlift .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pminyxlift .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pminyxlift .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pminyxlift .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pminyxlift div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Free-Text Substantive Agreement</th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Measure" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Measure</th>
+<th id="Result" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Result</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Measure">Substantive comparisons</td>
+<td class="gt_row gt_right" headers="Result">29</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Measure">Agreements</td>
+<td class="gt_row gt_right" headers="Result">26</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Measure">Disagreements</td>
+<td class="gt_row gt_right" headers="Result">3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Measure">Substantive agreement</td>
+<td class="gt_row gt_right" headers="Result">89.7%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="agreement-by-free-text-field" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="agreement-by-free-text-field"><span class="header-section-number">6.3.1</span> Agreement by Free-Text Field</h3>
+<p>Only fields containing at least one substantive comparison are shown.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="bvholdhurj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bvholdhurj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bvholdhurj thead, #bvholdhurj tbody, #bvholdhurj tfoot, #bvholdhurj tr, #bvholdhurj td, #bvholdhurj th {
+  border-style: none;
+}
+
+#bvholdhurj p {
+  margin: 0;
+  padding: 0;
+}
+
+#bvholdhurj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bvholdhurj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bvholdhurj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bvholdhurj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bvholdhurj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bvholdhurj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bvholdhurj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bvholdhurj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bvholdhurj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bvholdhurj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bvholdhurj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bvholdhurj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bvholdhurj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bvholdhurj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bvholdhurj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvholdhurj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bvholdhurj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bvholdhurj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bvholdhurj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvholdhurj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bvholdhurj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvholdhurj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bvholdhurj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvholdhurj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bvholdhurj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bvholdhurj .gt_left {
+  text-align: left;
+}
+
+#bvholdhurj .gt_center {
+  text-align: center;
+}
+
+#bvholdhurj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bvholdhurj .gt_font_normal {
+  font-weight: normal;
+}
+
+#bvholdhurj .gt_font_bold {
+  font-weight: bold;
+}
+
+#bvholdhurj .gt_font_italic {
+  font-style: italic;
+}
+
+#bvholdhurj .gt_super {
+  font-size: 65%;
+}
+
+#bvholdhurj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bvholdhurj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bvholdhurj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bvholdhurj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bvholdhurj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bvholdhurj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bvholdhurj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#bvholdhurj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#bvholdhurj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Free-text field</th>
+<th id="n_assessed" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Comparisons</th>
+<th id="n_agree" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Agreements</th>
+<th id="n_disagree" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Disagreements</th>
+<th id="percent_agreement" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Agreement (%)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">other_health_action_txt</td>
+<td class="gt_row gt_right" headers="n_assessed">15</td>
+<td class="gt_row gt_right" headers="n_agree">12</td>
+<td class="gt_row gt_right" headers="n_disagree">3</td>
+<td class="gt_row gt_right" headers="percent_agreement">80.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_HEPA_txt</td>
+<td class="gt_row gt_right" headers="n_assessed">1</td>
+<td class="gt_row gt_right" headers="n_agree">1</td>
+<td class="gt_row gt_right" headers="n_disagree">0</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_mask_txt</td>
+<td class="gt_row gt_right" headers="n_assessed">1</td>
+<td class="gt_row gt_right" headers="n_agree">1</td>
+<td class="gt_row gt_right" headers="n_disagree">0</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">outdoor_AQ_action_txt</td>
+<td class="gt_row gt_right" headers="n_assessed">8</td>
+<td class="gt_row gt_right" headers="n_agree">8</td>
+<td class="gt_row gt_right" headers="n_disagree">0</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">run_HVAC_filter_type_txt</td>
+<td class="gt_row gt_right" headers="n_assessed">4</td>
+<td class="gt_row gt_right" headers="n_agree">4</td>
+<td class="gt_row gt_right" headers="n_disagree">0</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="supplementary-reliability-results" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Supplementary Reliability Results</h1>
+<p>The complete variable-level binary reliability results are provided below for diagnostic review.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="efktbhirkj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#efktbhirkj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#efktbhirkj thead, #efktbhirkj tbody, #efktbhirkj tfoot, #efktbhirkj tr, #efktbhirkj td, #efktbhirkj th {
+  border-style: none;
+}
+
+#efktbhirkj p {
+  margin: 0;
+  padding: 0;
+}
+
+#efktbhirkj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#efktbhirkj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#efktbhirkj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#efktbhirkj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#efktbhirkj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#efktbhirkj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#efktbhirkj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#efktbhirkj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#efktbhirkj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#efktbhirkj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#efktbhirkj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#efktbhirkj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#efktbhirkj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#efktbhirkj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#efktbhirkj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#efktbhirkj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#efktbhirkj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#efktbhirkj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#efktbhirkj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#efktbhirkj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#efktbhirkj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#efktbhirkj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#efktbhirkj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#efktbhirkj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#efktbhirkj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#efktbhirkj .gt_left {
+  text-align: left;
+}
+
+#efktbhirkj .gt_center {
+  text-align: center;
+}
+
+#efktbhirkj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#efktbhirkj .gt_font_normal {
+  font-weight: normal;
+}
+
+#efktbhirkj .gt_font_bold {
+  font-weight: bold;
+}
+
+#efktbhirkj .gt_font_italic {
+  font-style: italic;
+}
+
+#efktbhirkj .gt_super {
+  font-size: 65%;
+}
+
+#efktbhirkj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#efktbhirkj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#efktbhirkj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#efktbhirkj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#efktbhirkj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#efktbhirkj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#efktbhirkj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#efktbhirkj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#efktbhirkj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Coding variable</th>
+<th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">N</th>
+<th id="n_agree" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Agreements</th>
+<th id="percent_agreement" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Agreement (%)</th>
+<th id="coder_1_yes" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">SL Yes</th>
+<th id="coder_2_yes" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">MB Yes</th>
+<th id="krippendorff_alpha" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Krippendorff's alpha</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_outdoor_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_HEPA_improves_other_non_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.47</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_indoor_well_being</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.47</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_reduce_outdoor</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.63</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_indoor_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.63</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_crowdsource</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.63</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_DIY_improves_other_non_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.65</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_govt_BC</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">23</td>
+<td class="gt_row gt_right" headers="percent_agreement">88.5</td>
+<td class="gt_row gt_right" headers="coder_1_yes">9</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.74</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">outdoor_AQ_action_specified</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">23</td>
+<td class="gt_row gt_right" headers="percent_agreement">88.5</td>
+<td class="gt_row gt_right" headers="coder_1_yes">9</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.74</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">other_health_action</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">23</td>
+<td class="gt_row gt_right" headers="percent_agreement">88.5</td>
+<td class="gt_row gt_right" headers="coder_1_yes">11</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.76</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_HEPA_improves_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">5</td>
+<td class="gt_row gt_right" headers="coder_2_yes">7</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.79</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">8</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.82</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_govt_ECCC</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">92.3</td>
+<td class="gt_row gt_right" headers="coder_1_yes">9</td>
+<td class="gt_row gt_right" headers="coder_2_yes">11</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.84</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">run_HVAC_filter_specified</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">5</td>
+<td class="gt_row gt_right" headers="coder_2_yes">4</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.87</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_indoor</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">6</td>
+<td class="gt_row gt_right" headers="coder_2_yes">5</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.89</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">run_HVAC_continuous</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">5</td>
+<td class="gt_row gt_right" headers="coder_2_yes">6</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.89</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_hepa</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">7</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.91</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">stay_indoors_doors_windows_closed</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">9</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.91</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">check_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">17</td>
+<td class="gt_row gt_right" headers="coder_2_yes">16</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.92</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">use_air_cleaner</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">16</td>
+<td class="gt_row gt_right" headers="coder_2_yes">15</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.92</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">12</td>
+<td class="gt_row gt_right" headers="coder_2_yes">11</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.92</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">15</td>
+<td class="gt_row gt_right" headers="coder_2_yes">14</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.92</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">use_HEPA_filter</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">12</td>
+<td class="gt_row gt_right" headers="coder_2_yes">11</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.92</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">reduce_outdoor_exercise</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">25</td>
+<td class="gt_row gt_right" headers="percent_agreement">96.2</td>
+<td class="gt_row gt_right" headers="coder_1_yes">13</td>
+<td class="gt_row gt_right" headers="coder_2_yes">12</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">0.92</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_DIY</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">5</td>
+<td class="gt_row gt_right" headers="coder_2_yes">5</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_DIY_improves_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_DIY_improves_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_HEPA_improves_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_HEPA_improves_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_indoor</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">8</td>
+<td class="gt_row gt_right" headers="coder_2_yes">8</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_indoor_improves_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">7</td>
+<td class="gt_row gt_right" headers="coder_2_yes">7</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_indoor_improves_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_HEPA_noise</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_HEPA_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_HEPA_upfront_cost</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_diy</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_diy_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_hepa</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">4</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_mask</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_mask_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_mask_well_being</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_govt</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">11</td>
+<td class="gt_row gt_right" headers="coder_2_yes">11</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_govt_FireSmoke</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_method</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">13</td>
+<td class="gt_row gt_right" headers="coder_2_yes">13</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_HEPA_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_HEPA_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_mask_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_mask_reduce_exposure</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">2</td>
+<td class="gt_row gt_right" headers="coder_2_yes">2</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">filter_air_vehicle</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">monitor_indoor_AQ</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">6</td>
+<td class="gt_row gt_right" headers="coder_2_yes">6</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">stay_indoors</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">13</td>
+<td class="gt_row gt_right" headers="coder_2_yes">13</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">target_audience_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">5</td>
+<td class="gt_row gt_right" headers="coder_2_yes">5</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">target_group_children_infants</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">target_group_pregnant</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">wear_mask</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">4</td>
+<td class="gt_row gt_right" headers="coder_2_yes">4</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">wear_mask_KN95</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">wear_mask_N95</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">3</td>
+<td class="gt_row gt_right" headers="coder_2_yes">3</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">wear_mask_against_specified</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">wear_mask_respirator</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">1</td>
+<td class="gt_row gt_right" headers="coder_2_yes">1</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">1.00</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">author_accreditation_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">author_additional_info_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">author_individual_level</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">author_names_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_DIY_improves_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">benefits_indoor_improves_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">benefits_indoor_improves_other_non_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_HEPA_main_cost</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_diy_main_cost</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_diy_noise</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_indoor_work</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_mask_cost</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_mask_work</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_outdoor</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">burden_outdoor_well_being</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">burden_outdoor_work</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_IQair</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">check_outdoor_AQ_PurpleAir</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">dev_process_described</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_DIY_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_DIY_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_DIY_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_DIY_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_DIY_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_HEPA_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_HEPA_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_HEPA_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_DIY_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_DIY_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_DIY_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_DIY_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_DIY_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_HEPA_air_quality</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_HEPA_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_HEPA_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_HEPA_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_HEPA_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_mask_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_mask_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_mask_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_mask_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_mask_reduce_exposure</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_other_action_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_reduce_exercise_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_reduce_exercise_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_reduce_exercise_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_reduce_exercise_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_reduce_exercise_reduce_exposure</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_stay_indoors_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_stay_indoors_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_stay_indoors_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_stay_indoors_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_burden_stay_indoors_reduce_exposure</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_mask_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_mask_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_mask_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_other_action_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_reduce_exercise_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_reduce_exercise_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_reduce_exercise_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_reduce_exercise_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_reduce_exercise_reduce_exposure</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_stay_indoors_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_stay_indoors_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_stay_indoors_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">effectsize_stay_indoors_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">effectsize_stay_indoors_reduce_exposure</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">evidence_quality_DIY</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">evidence_quality_HEPA</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">evidence_quality_mask</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">evidence_quality_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">evidence_quality_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">evidence_quality_reduce_exercise</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">evidence_quality_stay_indoors</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">guidance_goal_informs_decisions</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">guidance_goal_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">guidance_goal_present</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">guidance_goal_protect_health_general</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">guidance_goal_protect_health_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">guidance_goal_protect_lung_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">include_wfs_health_action</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">26</td>
+<td class="gt_row gt_right" headers="coder_2_yes">26</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">indoor_monitor_action_specified</td>
+<td class="gt_row gt_right" headers="n">24</td>
+<td class="gt_row gt_right" headers="n_agree">24</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">indoor_monitor_type_specified</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">language_chinese</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">language_french</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">language_hindi</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">language_other_specified</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">language_punjabi</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">language_spanish</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">multi_language_available</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">references_scientific_publications</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">target_audience_general_pop</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">target_group_current_lung_disease</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">target_group_current_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">target_group_current_other_health</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">target_group_older</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="variable">wear_mask_other</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="variable">wear_mask_surgical</td>
+<td class="gt_row gt_right" headers="n">26</td>
+<td class="gt_row gt_right" headers="n_agree">26</td>
+<td class="gt_row gt_right" headers="percent_agreement">100.0</td>
+<td class="gt_row gt_right" headers="coder_1_yes">0</td>
+<td class="gt_row gt_right" headers="coder_2_yes">0</td>
+<td class="gt_row gt_right" headers="krippendorff_alpha">NA</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

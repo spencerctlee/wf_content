@@ -6,6 +6,9 @@ date: last-modified
 format:
   html:
     toc: true
+    number-sections: true
+  docx:
+    toc: true
 
 execute:
   echo: false
