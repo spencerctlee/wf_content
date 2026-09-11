@@ -1,0 +1,560 @@
+---
+title: "Wildfire Public Health Guidance Content Analysis"
+author: "Spencer Lee"
+date: last-modified
+
+format:
+  html:
+    toc: true
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Setup
+
+Load packages required for data import, cleaning, descriptive analysis, and assessment of inter-coder reliability.
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readxl)
+library(janitor)
+library(irr)
+library(gt)
+```
+
+# Import Data
+
+Import the independently coded datasets completed by SL and MB and the manually assessed free-text agreement dataset.
+
+```{r}
+code_1 <- read.csv("./data/20260908/s_content_analysis.csv")
+code_2 <- read.csv("./data/20260908/m_content_analysis.csv")
+text_code <- read.csv("./data/20260908/text_agreement.csv")
+```
+
+# Data Preparation
+
+Binary coding variables were standardized to `1 = Yes` and `0 = No`. Free-text extraction fields and document metadata were excluded from the binary reliability analysis. Blank, `NA`, `N/A`, and placeholder `0` values were treated as missing.
+
+```{r}
+clean_binary_codes <- function(df) {
+  df |>
+    select(
+      -source_name,
+      -ends_with("_txt"),
+      -target_group_pregnant.1
+    ) |>
+    mutate(
+      across(
+        -doc_id,
+        ~ case_when(
+          str_squish(toupper(as.character(.x))) == "YES" ~ 1L,
+          str_squish(toupper(as.character(.x))) == "NO"  ~ 0L,
+          str_squish(toupper(as.character(.x))) %in%
+            c("", "NA", "N/A", "0") ~ NA_integer_,
+          TRUE ~ NA_integer_
+        )
+      )
+    ) |>
+    rename(
+      burden_present = bruden_present
+    )
+}
+
+code_1_bin <- clean_binary_codes(code_1)
+code_2_bin <- clean_binary_codes(code_2)
+```
+
+## Data Checks
+
+Confirm that the two coder datasets contain the same coding variables and assess whether document identifiers correspond across datasets.
+
+```{r}
+same_variables <- identical(
+  names(code_1_bin),
+  names(code_2_bin)
+)
+
+same_documents <- setequal(
+  code_1_bin$doc_id,
+  code_2_bin$doc_id
+)
+
+n_documents_coder_1 <- n_distinct(code_1_bin$doc_id)
+n_documents_coder_2 <- n_distinct(code_2_bin$doc_id)
+
+unmatched_code_1 <- anti_join(
+  code_1_bin |> select(doc_id),
+  code_2_bin |> select(doc_id),
+  by = "doc_id"
+)
+
+unmatched_code_2 <- anti_join(
+  code_2_bin |> select(doc_id),
+  code_1_bin |> select(doc_id),
+  by = "doc_id"
+)
+```
+
+# Inter-Coder Reliability
+
+Inter-coder reliability between the two independent coders (SL and MB) was assessed using observed percent agreement and Krippendorff's alpha. Krippendorff's alpha was calculated at the nominal level for binary categorical coding variables.
+
+Consistent with the prespecified pilot protocol, the primary reliability assessment pooled eligible document-by-code decisions across all binary codes. An alpha of at least 0.80 was considered sufficient to proceed to the main coding phase.
+
+Variable-level reliability was examined as a secondary diagnostic analysis to identify individual codes associated with disagreement.
+
+## Prepare Reliability Dataset
+
+```{r}
+code_1_long <- code_1_bin |>
+  pivot_longer(
+    -doc_id,
+    names_to = "variable",
+    values_to = "coder_1"
+  )
+
+code_2_long <- code_2_bin |>
+  pivot_longer(
+    -doc_id,
+    names_to = "variable",
+    values_to = "coder_2"
+  )
+
+reliability_long <- code_1_long |>
+  inner_join(
+    code_2_long,
+    by = c("doc_id", "variable")
+  )
+```
+
+## Overall Reliability
+
+```{r}
+overall_agreement <- reliability_long |>
+  filter(
+    !is.na(coder_1),
+    !is.na(coder_2)
+  ) |>
+  summarise(
+    n_decisions = n(),
+    n_agree = sum(coder_1 == coder_2),
+    n_disagree = sum(coder_1 != coder_2),
+    percent_agreement = mean(coder_1 == coder_2) * 100
+  )
+
+overall_alpha_data <- reliability_long |>
+  filter(
+    !is.na(coder_1),
+    !is.na(coder_2)
+  ) |>
+  select(coder_1, coder_2) |>
+  t()
+
+overall_alpha <- irr::kripp.alpha(
+  overall_alpha_data,
+  method = "nominal"
+)
+
+overall_alpha_value <- overall_alpha$value
+
+threshold_met <- overall_alpha_value >= 0.80
+```
+
+## Variable-Level Reliability
+
+For variables with no variation across coder ratings, Krippendorff's alpha was considered not estimable. Percent agreement was nevertheless retained.
+
+```{r}
+calc_alpha <- function(x, y) {
+
+  complete <- !is.na(x) & !is.na(y)
+
+  x <- x[complete]
+  y <- y[complete]
+
+  if (length(x) == 0) {
+    return(NA_real_)
+  }
+
+  if (length(unique(c(x, y))) < 2) {
+    return(NA_real_)
+  }
+
+  irr::kripp.alpha(
+    rbind(x, y),
+    method = "nominal"
+  )$value
+}
+
+reliability_results_var <- reliability_long |>
+  group_by(variable) |>
+  summarise(
+    n = sum(!is.na(coder_1) & !is.na(coder_2)),
+    n_agree = sum(
+      coder_1 == coder_2 &
+        !is.na(coder_1) &
+        !is.na(coder_2)
+    ),
+    percent_agreement = ifelse(
+      n > 0,
+      100 * n_agree / n,
+      NA_real_
+    ),
+    coder_1_yes = sum(coder_1 == 1, na.rm = TRUE),
+    coder_2_yes = sum(coder_2 == 1, na.rm = TRUE),
+    krippendorff_alpha = calc_alpha(coder_1, coder_2),
+    .groups = "drop"
+  )
+```
+
+## Summary Across Variables
+
+```{r}
+variable_reliability_summary <- reliability_results_var |>
+  summarise(
+    n_variables = n(),
+    n_alpha_estimable = sum(!is.na(krippendorff_alpha)),
+    n_alpha_not_estimable = sum(is.na(krippendorff_alpha)),
+    median_agreement = median(percent_agreement, na.rm = TRUE),
+    median_alpha = median(krippendorff_alpha, na.rm = TRUE),
+    q1_alpha = quantile(
+      krippendorff_alpha,
+      0.25,
+      na.rm = TRUE
+    ),
+    q3_alpha = quantile(
+      krippendorff_alpha,
+      0.75,
+      na.rm = TRUE
+    ),
+    n_alpha_ge_080 = sum(
+      krippendorff_alpha >= 0.80,
+      na.rm = TRUE
+    ),
+    n_alpha_067_079 = sum(
+      krippendorff_alpha >= 0.67 &
+        krippendorff_alpha < 0.80,
+      na.rm = TRUE
+    ),
+    n_alpha_lt_067 = sum(
+      krippendorff_alpha < 0.67,
+      na.rm = TRUE
+    )
+  )
+```
+
+# Free-Text Reliability
+
+Free-text extraction fields were evaluated separately because independently extracted strings could differ lexically while conveying the same substantive information. Agreement was manually assessed based on substantive equivalence.
+
+Document-field pairs in which neither coder entered substantive text were excluded from the substantive agreement denominator.
+
+```{r}
+clean_text_missing <- function(x) {
+  x <- str_squish(as.character(x))
+
+  ifelse(
+    is.na(x) |
+      x %in% c("", "0", "N/A", "NA"),
+    NA_character_,
+    x
+  )
+}
+
+text_long <- text_code |>
+  mutate(
+    across(-doc_id, as.character)
+  ) |>
+  pivot_longer(
+    -doc_id,
+    names_to = c("coder", "variable"),
+    names_pattern = "^(MB|SL|agree)_(.*)$",
+    values_to = "value"
+  ) |>
+  pivot_wider(
+    names_from = coder,
+    values_from = value
+  ) |>
+  mutate(
+    MB = clean_text_missing(MB),
+    SL = clean_text_missing(SL),
+    agree = str_squish(
+      toupper(as.character(agree))
+    )
+  )
+```
+
+## Manual Assessment Check
+
+```{r}
+manual_assessments <- text_long |>
+  filter(agree == "MANUAL_ASSESS") |>
+  select(
+    doc_id,
+    variable,
+    MB,
+    SL
+  )
+
+n_manual_assess <- nrow(manual_assessments)
+```
+
+All `MANUAL_ASSESS` decisions should be resolved to `YES` or `NO` before final reliability results are reported.
+
+```{r}
+text_eligible <- text_long |>
+  filter(
+    !is.na(MB) | !is.na(SL),
+    agree %in% c("YES", "NO")
+  )
+```
+
+## Overall Free-Text Agreement
+
+```{r}
+text_agreement_overall <- text_eligible |>
+  summarise(
+    n_assessed = n(),
+    n_agree = sum(agree == "YES"),
+    n_disagree = sum(agree == "NO"),
+    percent_agreement =
+      100 * n_agree / n_assessed
+  )
+```
+
+## Free-Text Agreement by Field
+
+```{r}
+text_agreement_by_field <- text_eligible |>
+  group_by(variable) |>
+  summarise(
+    n_assessed = n(),
+    n_agree = sum(agree == "YES"),
+    n_disagree = sum(agree == "NO"),
+    percent_agreement =
+      100 * n_agree / n_assessed,
+    .groups = "drop"
+  ) |>
+  arrange(percent_agreement)
+```
+
+# Results
+
+## Overall Inter-Coder Reliability
+
+The reliability analysis included
+`r n_distinct(reliability_long$doc_id)` guidance documents and
+`r format(overall_agreement$n_decisions, big.mark = ",")`
+eligible binary document-by-code decisions.
+
+Coders agreed on
+`r format(overall_agreement$n_agree, big.mark = ",")`
+coding decisions, corresponding to an overall observed agreement of
+`r sprintf("%.1f", overall_agreement$percent_agreement)`%.
+
+Nominal Krippendorff's alpha across all eligible binary coding decisions was
+`r sprintf("%.2f", overall_alpha_value)`.
+The prespecified reliability threshold of alpha >= 0.80 was
+`r ifelse(threshold_met, "met", "not met")`.
+
+```{r}
+overall_reliability_table <- tibble(
+  Measure = c(
+    "Documents",
+    "Eligible binary coding decisions",
+    "Agreements",
+    "Disagreements",
+    "Observed agreement",
+    "Krippendorff's alpha",
+    "Prespecified alpha >= 0.80 threshold"
+  ),
+  Result = c(
+    n_distinct(reliability_long$doc_id),
+    format(
+      overall_agreement$n_decisions,
+      big.mark = ","
+    ),
+    format(
+      overall_agreement$n_agree,
+      big.mark = ","
+    ),
+    format(
+      overall_agreement$n_disagree,
+      big.mark = ","
+    ),
+    sprintf(
+      "%.1f%%",
+      overall_agreement$percent_agreement
+    ),
+    sprintf(
+      "%.2f",
+      overall_alpha_value
+    ),
+    ifelse(
+      threshold_met,
+      "Met",
+      "Not met"
+    )
+  )
+)
+
+overall_reliability_table |>
+  gt() |>
+  tab_header(
+    title = "Overall Inter-Coder Reliability"
+  )
+```
+
+## Reliability Across Individual Coding Variables
+
+Across the
+`r variable_reliability_summary$n_variables`
+binary coding variables, Krippendorff's alpha could be estimated for
+`r variable_reliability_summary$n_alpha_estimable`
+variables. Alpha was not estimable for
+`r variable_reliability_summary$n_alpha_not_estimable`
+variables because there was insufficient variation in coder ratings.
+
+Among variables for which alpha was estimable, the median Krippendorff's alpha was
+`r sprintf("%.2f", variable_reliability_summary$median_alpha)`
+(IQR
+`r sprintf("%.2f", variable_reliability_summary$q1_alpha)`–
+`r sprintf("%.2f", variable_reliability_summary$q3_alpha)`).
+
+Of these,
+`r variable_reliability_summary$n_alpha_ge_080`
+had alpha >= 0.80,
+`r variable_reliability_summary$n_alpha_067_079`
+had alpha between 0.67 and 0.79, and
+`r variable_reliability_summary$n_alpha_lt_067`
+had alpha < 0.67.
+
+### Variables Below the Prespecified Reliability Threshold
+
+```{r}
+reliability_results_var |>
+  filter(
+    !is.na(krippendorff_alpha),
+    krippendorff_alpha < 0.80
+  ) |>
+  arrange(krippendorff_alpha) |>
+  select(
+    variable,
+    n,
+    n_agree,
+    percent_agreement,
+    coder_1_yes,
+    coder_2_yes,
+    krippendorff_alpha
+  ) |>
+  gt() |>
+  cols_label(
+    variable = "Coding variable",
+    n = "N",
+    n_agree = "Agreements",
+    percent_agreement = "Agreement (%)",
+    coder_1_yes = "SL Yes",
+    coder_2_yes = "MB Yes",
+    krippendorff_alpha = "Krippendorff's alpha"
+  ) |>
+  fmt_number(
+    columns = percent_agreement,
+    decimals = 1
+  ) |>
+  fmt_number(
+    columns = krippendorff_alpha,
+    decimals = 2
+  )
+```
+
+## Free-Text Agreement
+
+Among
+`r text_agreement_overall$n_assessed`
+document-field pairs in which at least one coder entered substantive free-text content,
+the coders agreed on
+`r text_agreement_overall$n_agree`
+and disagreed on
+`r text_agreement_overall$n_disagree`,
+corresponding to substantive agreement of
+`r sprintf("%.1f", text_agreement_overall$percent_agreement)`%.
+
+```{r}
+text_summary <- tibble(
+  Measure = c(
+    "Substantive comparisons",
+    "Agreements",
+    "Disagreements",
+    "Substantive agreement"
+  ),
+  Result = c(
+    text_agreement_overall$n_assessed,
+    text_agreement_overall$n_agree,
+    text_agreement_overall$n_disagree,
+    sprintf(
+      "%.1f%%",
+      text_agreement_overall$percent_agreement
+    )
+  )
+)
+
+text_summary |>
+  gt() |>
+  tab_header(
+    title = "Free-Text Substantive Agreement"
+  )
+```
+
+### Agreement by Free-Text Field
+
+Only fields containing at least one substantive comparison are shown.
+
+```{r}
+text_agreement_by_field |>
+  filter(n_assessed > 0) |>
+  gt() |>
+  cols_label(
+    variable = "Free-text field",
+    n_assessed = "Comparisons",
+    n_agree = "Agreements",
+    n_disagree = "Disagreements",
+    percent_agreement = "Agreement (%)"
+  ) |>
+  fmt_number(
+    columns = percent_agreement,
+    decimals = 1
+  )
+```
+
+# Supplementary Reliability Results
+
+The complete variable-level binary reliability results are provided below for diagnostic review.
+
+```{r}
+reliability_results_var |>
+  arrange(krippendorff_alpha) |>
+  gt() |>
+  cols_label(
+    variable = "Coding variable",
+    n = "N",
+    n_agree = "Agreements",
+    percent_agreement = "Agreement (%)",
+    coder_1_yes = "SL Yes",
+    coder_2_yes = "MB Yes",
+    krippendorff_alpha = "Krippendorff's alpha"
+  ) |>
+  fmt_number(
+    columns = percent_agreement,
+    decimals = 1
+  ) |>
+  fmt_number(
+    columns = krippendorff_alpha,
+    decimals = 2
+  )
+```

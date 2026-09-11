@@ -1,0 +1,63 @@
+---
+title: "Wildfire Public Health Guidance Content Analysis"
+author: "Spencer Lee"
+date: last-modified
+
+format:
+  html:
+    toc: true
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+# Setup
+Load the packages required for data import, cleaning, descriptive analysis, and assessment of inter-coder reliability. Set global options for reproducible analysis.
+```{r}
+library(tidyr)   # data cleaning, reshaping, summaries
+library(readxl)      # import Excel coding sheets
+library(janitor)     # clean variable names / tabulations
+library(irr)         # Krippendorff's alpha
+library(gt)          # clean output tables
+```
+
+# Import Data
+Import the independently coded pilot datasets completed by SL and MB. Each dataset contains coding decisions for the same set of wildfire smoke guidance documents.
+
+
+# Data Preparation
+Prepare the coder datasets for analysis by standardizing variable names and coding values, checking document identifiers, and aligning records across coders.
+
+Binary coding variables are coded as `Yes` or `No`. Variables not applicable to a given document or recommendation are retained separately from substantive `No` responses where applicable.
+
+# Pilot Sample Characteristics
+The pilot sample consists of wildfire smoke guidance documents from non-partner organizations and is used to assess and refine the coding framework before the main content analysis.
+
+# Inter-Coder Reliability
+Assess agreement between the two independent coders across the pilot sample.
+
+Inter-coder reliability is evaluated using both observed percent agreement and Krippendorff's alpha. Krippendorff's alpha is calculated at the nominal level for categorical coding variables.
+
+## Percent Agreement
+Calculate the proportion of coding decisions for which SL and MB assigned the same value.
+
+Percent agreement is summarized overall and, where appropriate, separately for each coding variable.
+
+## Krippendorff's Alpha
+Calculate Krippendorff's alpha to quantify inter-coder reliability while accounting for agreement expected by chance.
+
+The primary reliability assessment is based on all eligible categorical coding decisions in the pilot dataset. An alpha of at least 0.80 is considered sufficient to proceed to the main coding phase, consistent with the prespecified pilot protocol.
+
+## Agreement by Code
+Calculate agreement statistics separately for each code to identify coding categories with lower reliability.
+
+For each code, summarize the number of documents coded, percent agreement, and Krippendorff's alpha where estimable.
+
+## Disagreements
+Identify individual coding decisions for which SL and MB assigned different values.
+
+Disagreements are summarized by document and code to support team review, clarification of decision rules, and refinement of the coding manual before final coding.
+
+# Tables and Figures
+Generate summary tables describing the pilot sample and inter-coder reliability results.
