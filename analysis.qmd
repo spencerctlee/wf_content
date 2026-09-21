@@ -1,0 +1,272 @@
+---
+title: "Wildfire Public Health Guidance Content Analysis"
+author: "Spencer Lee"
+date: last-modified
+
+format:
+  html:
+    toc: true
+
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+# Setup
+Load the packages required for data import, cleaning, descriptive analysis, and assessment of inter-coder reliability. Set global options for reproducible analysis.
+```{r}
+library(dplyr)
+library(stringr)
+library(readxl)      # import Excel coding sheets
+library(janitor)     # clean variable names / tabulations
+library(irr)         # Krippendorff's alpha
+library(gt)          # clean output tables
+```
+
+# Import Data
+Import the independently coded pilot datasets completed by SL and MB. Each dataset contains coding decisions for the same set of wildfire smoke guidance documents.
+```{r}
+code_1 <- read.csv("./data/20260908/s_content_analysis.csv")
+code_2 <- read.csv("./data/20260908/m_content_analysis.csv")
+text_code <- read.csv("./data/20260908/text_agreement.csv")
+```
+
+
+
+# Data Preparation
+Prepare the coder datasets for analysis by standardizing variable names and coding values, checking document identifiers, and aligning records across coders.
+
+Binary coding variables are coded as `Yes` or `No`. Variables not applicable to a given document or recommendation are retained separately from substantive `No` responses where applicable.
+```{r}
+clean_binary_codes <- function(df) {
+  df |>
+    select(
+      -source_name,
+      -ends_with("_txt"),
+      -target_group_pregnant.1
+    ) |>
+    mutate(
+      across(
+        -doc_id,
+        ~ case_when(
+          str_squish(toupper(as.character(.x))) == "YES" ~ 1L,
+          str_squish(toupper(as.character(.x))) == "NO"  ~ 0L,
+          str_squish(toupper(as.character(.x))) %in%
+            c("", "NA", "N/A", "0") ~ NA_integer_,
+          TRUE ~ NA_integer_
+        )
+      )
+    )
+}
+
+code_1_bin <- clean_binary_codes(code_1)
+code_2_bin <- clean_binary_codes(code_2)
+
+code_1_bin <- code_1_bin |>
+  rename(burden_present = bruden_present)
+code_2_bin <- code_2_bin |>
+  rename(burden_present = bruden_present)
+
+glimpse(code_1_bin)
+```
+
+
+# Pilot Sample Characteristics
+The pilot sample consists of wildfire smoke guidance documents from non-partner organizations and is used to assess and refine the coding framework before the main content analysis.
+
+# Inter-Coder Reliability
+
+Inter-coder reliability between the two independent coders (SL and MB) was assessed across the pilot sample.
+
+Reliability was evaluated using observed percent agreement and Krippendorff's alpha. For structured categorical variables, Krippendorff's alpha was calculated at the nominal level.
+```{r}
+# code_1_bin
+# code_2_bin
+
+reliability_dat <- code_1_bin |>
+  inner_join(
+    code_2_bin,
+    by = "doc_id",
+    suffix = c("_c1", "_c2")
+  )
+
+code_1_long <- code_1_bin |>
+  pivot_longer(
+    -doc_id,
+    names_to = "variable",
+    values_to = "coder_1"
+  )
+
+code_2_long <- code_2_bin |>
+  pivot_longer(
+    -doc_id,
+    names_to = "variable",
+    values_to = "coder_2"
+  )
+
+# glimpse(code_1_long)
+# glimpse(code_2_long)
+
+reliability_long <- code_1_long |>
+  inner_join(
+    code_2_long,
+    by = c("doc_id", "variable")
+  )
+
+# glimpse(reliability_long)
+
+overall_agreement <- reliability_long |>
+  filter(!is.na(coder_1), !is.na(coder_2)) |>
+  summarise(
+    n_decisions = n(),
+    n_agree = sum(coder_1 == coder_2),
+    percent_agreement = mean(coder_1 == coder_2) * 100
+  )
+
+overall_agreement
+
+## Kripiendorff's alpha
+overall_alpha_data <- reliability_long |>
+  select(coder_1, coder_2) |>
+  t()
+
+overall_alpha <- kripp.alpha(
+  overall_alpha_data,
+  method = "nominal"
+)
+
+overall_alpha
+```
+
+
+## Overall Reliability
+
+Consistent with the prespecified pilot protocol, the primary reliability assessment pooled all eligible binary coding decisions across documents and codes. Each document-by-code combination was treated as a coding unit.
+
+Overall observed percent agreement and nominal Krippendorff's alpha were calculated across these coding decisions. An alpha of at least 0.80 was considered sufficient to proceed to the main coding phase.
+
+## Variable-Level Reliability
+
+As a secondary diagnostic analysis, percent agreement and Krippendorff's alpha were also calculated separately for each binary coding variable to identify codes associated with lower intercoder reliability.
+
+For variables with no variation across coder ratings, Krippendorff's alpha was considered not estimable; observed percent agreement was still reported.
+
+```{r}
+## Percent agreement by variable ##
+variable_agreement <- reliability_long |>
+  group_by(variable) |>
+  summarise(
+    n = sum(!is.na(coder_1) & !is.na(coder_2)),
+    n_agree = sum(
+      coder_1 == coder_2 &
+        !is.na(coder_1) &
+        !is.na(coder_2)
+    ),
+    percent_agreement = 100 * n_agree / n,
+    coder_1_yes = sum(coder_1 == 1, na.rm = TRUE),
+    coder_2_yes = sum(coder_2 == 1, na.rm = TRUE),
+    .groups = "drop"
+  )
+# glimpse(variable_agreement)
+
+## Kripindorff's alpha by variable
+calc_alpha <- function(x, y) {
+
+  ratings <- rbind(x, y)
+
+  # Alpha cannot meaningfully be estimated if there is no variation
+  if (length(unique(na.omit(c(x, y)))) < 2) {
+    return(NA_real_)
+  }
+
+  irr::kripp.alpha(
+    ratings,
+    method = "nominal"
+  )$value
+}
+
+variable_alpha <- reliability_long |>
+  group_by(variable) |>
+  summarise(
+    krippendorff_alpha = calc_alpha(coder_1, coder_2),
+    .groups = "drop"
+  )
+
+# glimpse(variable_alpha)
+
+reliability_results_var <- variable_agreement |>
+  left_join(
+    variable_alpha,
+    by = "variable"
+  ) |>
+  arrange(krippendorff_alpha)
+
+# glimpse(reliability_results_var)
+```
+
+## Free-Text Fields
+Free-text extraction fields were evaluated separately. Because independently extracted strings may differ lexically while conveying the same substantive information, agreement was manually assessed based on substantive equivalence. Percent substantive agreement was calculated for these fields.
+```{r}
+clean_text_missing <- function(x) {
+  x <- str_squish(as.character(x))
+  ifelse(
+    is.na(x) | x %in% c("", "0", "N/A", "NA"),
+    NA_character_,
+    x
+  )
+}
+
+
+text_long <- text_code |>
+  mutate(
+    across(-doc_id, as.character)
+  ) |>
+  pivot_longer(
+    -doc_id,
+    names_to = c("coder", "variable"),
+    names_pattern = "^(MB|SL|agree)_(.*)$",
+    values_to = "value"
+  ) |>
+  pivot_wider(
+    names_from = coder,
+    values_from = value
+  ) |>
+  mutate(
+    MB = clean_text_missing(MB),
+    SL = clean_text_missing(SL),
+    agree = stringr::str_squish(toupper(as.character(agree)))
+  )
+
+# glimpse(text_long)
+
+text_eligible <- text_long |>
+  filter(
+    !is.na(MB) | !is.na(SL),
+    agree %in% c("YES", "NO")
+  )
+
+text_agreement_overall <- text_eligible |>
+  summarise(
+    n_assessed = n(),
+    n_agree = sum(agree == "YES"),
+    n_disagree = sum(agree == "NO"),
+    percent_agreement = 100 * n_agree / n_assessed
+  )
+
+text_agreement_overall
+
+text_agreement_by_field <- text_eligible |>
+  group_by(variable) |>
+  summarise(
+    n_assessed = n(),
+    n_agree = sum(agree == "YES"),
+    n_disagree = sum(agree == "NO"),
+    percent_agreement = 100 * n_agree / n_assessed,
+    .groups = "drop"
+  ) |>
+  arrange(percent_agreement)
+
+text_agreement_by_field
+```
+# Tables and Figures
+Generate summary tables describing the pilot sample and inter-coder reliability results.
